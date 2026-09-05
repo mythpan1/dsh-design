@@ -78,7 +78,11 @@ case "$cmd" in
         name="${1:-}"; shift || true
         parse_to "$@"
         to="${TO:-$ROOT/design/session-activate}"
-        dest="$to/$name"
+        if [[ "$kind" == "design-system" ]]; then
+          dest="$to/_design-systems/$name"
+        else
+          dest="$to/$name"
+        fi
         if [[ -d "$dest" ]]; then rm -rf "$dest"; echo "🗑  已移除 $kind: $name"; else echo "未找到: $dest"; fi
         ;;
       *) usage; exit 1 ;;
